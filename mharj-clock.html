@@ -1,0 +1,135 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="mharj-clock">
+	<template>
+		<style>
+		:host {}
+		svg{ width: inherit;}
+		.shadow {stroke: none; fill: #999999;}
+		.bg {stroke: none; fill: white;}
+		.fc {stroke: none; fill: black;}
+		.h1 {stroke: none; fill: black;}
+		.h2 {stroke: none; fill: #aa0000;}
+		</style>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-1024 -1024 2048 2048" >
+			<defs>
+				<path id="mark1" d="M -20,-1000 l 40,0 0,100 -40,0 z" />
+				<path id="mark2" d="M -40,-1000 l 80,0 0,240 -80,0 z" />
+				<path id="mark3" d="M -40,-1000 l 80,0 0,300 -80,0 z" />
+				<path id="handh" d="M -50,-600  l 50,-50 50,50 0,800  -100,0 z" />
+				<path id="handm" d="M -40,-900  l 40,-40 40,40 0,1180 -80,0  z" />
+				<g id="hands">
+					<path d="M -10,-910 l 10,-10 10,10 2,300 -24,0 z M -13,-390 l 26,0 7,690 -40,0 z" />
+					<path d="M 0,-620 a 120,120 0 0 1 0,240 a 120,120 0 0 1 0,-240 z M 0,-560 a  60,60  0 0 0 0,120 a  60,60  0 0 0 0,-120 z" />
+				</g>
+				<g id="face1">
+					<use xlink:href="#mark1" transform="rotate(06)" />
+					<use xlink:href="#mark1" transform="rotate(12)" />
+					<use xlink:href="#mark1" transform="rotate(18)" />
+					<use xlink:href="#mark1" transform="rotate(24)" />
+				</g>
+				<g id="face2">
+					<use xlink:href="#face1" />
+					<use xlink:href="#face1" transform="rotate(30)" />
+					<use xlink:href="#face1" transform="rotate(60)" />
+					<use xlink:href="#mark3" />
+					<use xlink:href="#mark2" transform="rotate(30)" />
+					<use xlink:href="#mark2" transform="rotate(60)" />
+				</g>
+				<g id="face">
+					<use xlink:href="#face2" />
+					<use xlink:href="#face2" transform="rotate(90)"  />
+					<use xlink:href="#face2" transform="rotate(180)" />
+					<use xlink:href="#face2" transform="rotate(270)" />
+				</g>
+			</defs>
+			<circle class="bg" r="1024" />
+			<use xlink:href="#face"  class="shadow" transform$="{{faceShadow}}" />
+			<use xlink:href="#handh" class="shadow" transform$="{{hourShadowTransform}}" />
+			<use xlink:href="#handm" class="shadow" transform$="{{minuteShadowTransform}}" />
+			<use xlink:href="#hands" class="shadow" transform$="{{secondShadowTransform}}" />
+			<use xlink:href="#face"  class="fc" />
+			<use xlink:href="#handh" class="h1" transform$="{{hourTransform}}" />
+			<use xlink:href="#handm" class="h1" transform$="{{minuteTransform}}" />
+			<use xlink:href="#hands" class="h2" transform$="{{secondTransform}}" />
+		</svg>
+	</template>
+	<script>
+		Polymer({
+			is: "mharj-clock",
+			properties: {
+				faceShadow: {
+					type: String,
+					value: "translate(30,30)",
+					readOnly: false,
+					notify: true				
+				},
+				secondTransform: {
+					type: String,
+					value: "rotate(0)",
+					readOnly: false,
+					notify: true
+				},
+				minuteTransform: {
+					type: String,
+					value: "rotate(0)",
+					readOnly: false,
+					notify: true
+				},
+				hourTransform: {
+					type: String,
+					value: "rotate(0)",
+					readOnly: false,
+					notify: true
+				},
+				secondShadowTransform: {
+					type: String,
+					value: "rotate(0)",
+					readOnly: false,
+					notify: true
+				},
+				minuteShadowTransform: {
+					type: String,
+					value: "rotate(0)",
+					readOnly: false,
+					notify: true
+				},
+				hourShadowTransform: {
+					type: String,
+					value: "rotate(0)",
+					readOnly: false,
+					notify: true
+				},
+				shadow: {
+					type: Number,
+					value: -68,
+					readOnly: false,
+					notify: true
+				}
+			},
+			start: function () {
+				this.updateTime();
+				this.interval = setInterval(this.updateTime.bind(this), 1000);
+			},
+			attached: function() {
+				this.updateTime();
+				setTimeout(this.start.bind(this), ((Math.ceil(this.time/1000)*1000)-this.time) ); // sync sec
+			},
+			detached: function() {
+				clearInterval(this.interval);
+			},
+			updateTime: function() {
+				var x = Math.round( -(Math.sin( (this.shadow * (Math.PI/180)) )*45) );
+				var y = Math.round( Math.cos( (this.shadow * (Math.PI/180)) )*45 );
+				this.time = new Date();
+				this.set('secondTransform',"rotate("+(this.time.getSeconds()*6)+")");
+				this.set('minuteTransform',"rotate("+(this.time.getMinutes()*6)+")");
+				this.set('hourTransform',"rotate("+((this.time.getHours()*30)+(this.time.getMinutes()/2))+")");
+				// shadow
+				this.set('faceShadow',"translate("+x+","+y+")");
+				this.set('secondShadowTransform',"translate("+x+","+y+") rotate("+(this.time.getSeconds()*6)+")");
+				this.set('minuteShadowTransform',"translate("+x+","+y+") rotate("+(this.time.getMinutes()*6)+")");
+				this.set('hourShadowTransform',"translate("+x+","+y+") rotate("+((this.time.getHours()*30)+(this.time.getMinutes()/2))+")");
+			}
+		});
+	</script>
+</dom-module>
