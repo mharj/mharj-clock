@@ -1,1 +1,7 @@
-
+:host {}
+svg{ width: inherit;}
+.shadow {stroke: none; fill: #999999;}
+.bg {stroke: none; fill: white;}
+.fc {stroke: none; fill: black;}
+.h1 {stroke: none; fill: black;}
+.h2 {stroke: none; fill: #aa0000;}
