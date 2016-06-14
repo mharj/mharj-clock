@@ -9,3 +9,7 @@ Polymer web Element
 
   }
 ```
+### Options
+```javascript
+  element.shadow = 173; // shadow angle
+```
