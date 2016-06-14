@@ -1,3 +1,23 @@
 {
-  "ignore": [ "README.md" ]
+  "name": "mharj-clock",
+  "homepage": "https://github.com/mharj/mharj-clock",
+  "description": "Polymer webelement clock",
+  "main": "mharj-clock.html",
+  "keywords": [
+    "clock",
+    "polymer"
+  ],
+  "authors": [
+    "mharj"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md"
+  ]
 }
