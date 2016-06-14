@@ -19,5 +19,8 @@
     "test",
     "tests",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
 }
