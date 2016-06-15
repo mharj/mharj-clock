@@ -16,3 +16,8 @@ Polymer web Element
   var pos = SunCalc.getPosition(new Date(), 60.3, 23.1);
   element.shadow = (pos.azimuth*180/Math.PI);
 ```
+### Html
+```html
+  <mharj-clock id='clock' style='width: 150px;height 150px'></mharj-clock>
+```
+
