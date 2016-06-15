@@ -8,7 +8,7 @@
 		.bg {stroke: none; fill: white;}
 		.fc {stroke: none; fill: black;}
 		.h1 {stroke: none; fill: black;}
-		.h2 {stroke: none; fill: #aa0000;}	
+		.h2 {stroke: none; fill: #aa0000;}
 		</style>
 		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-1024 -1024 2048 2048" >
 			<defs>
@@ -43,62 +43,20 @@
 				</g>
 			</defs>
 			<circle class="bg" r="1024" />
-			<use xlink:href="#face"  class="shadow" transform$="{{faceShadow}}" />
-			<use xlink:href="#handh" class="shadow" transform$="{{hourShadowTransform}}" />
-			<use xlink:href="#handm" class="shadow" transform$="{{minuteShadowTransform}}" />
-			<use xlink:href="#hands" class="shadow" transform$="{{secondShadowTransform}}" />
+			<use xlink:href="#face"  class="shadow" transform$="[[faceShadow]]" />
+			<use xlink:href="#handh" class="shadow" transform$="[[hourShadowTransform]]" />
+			<use xlink:href="#handm" class="shadow" transform$="[[minuteShadowTransform]]" />
+			<use xlink:href="#hands" class="shadow" transform$="[[secondShadowTransform]]" />
 			<use xlink:href="#face"  class="fc" />
-			<use xlink:href="#handh" class="h1" transform$="{{hourTransform}}" />
-			<use xlink:href="#handm" class="h1" transform$="{{minuteTransform}}" />
-			<use xlink:href="#hands" class="h2" transform$="{{secondTransform}}" />
+			<use xlink:href="#handh" class="h1" transform$="[[hourTransform]]" />
+			<use xlink:href="#handm" class="h1" transform$="[[minuteTransform]]" />
+			<use xlink:href="#hands" class="h2" transform$="[[secondTransform]]" />
 		</svg>
 	</template>
 	<script>
 		Polymer({
 			is: "mharj-clock",
 			properties: {
-				faceShadow: {
-					type: String,
-					value: "translate(30,30)",
-					readOnly: false,
-					notify: true				
-				},
-				secondTransform: {
-					type: String,
-					value: "rotate(0)",
-					readOnly: false,
-					notify: true
-				},
-				minuteTransform: {
-					type: String,
-					value: "rotate(0)",
-					readOnly: false,
-					notify: true
-				},
-				hourTransform: {
-					type: String,
-					value: "rotate(0)",
-					readOnly: false,
-					notify: true
-				},
-				secondShadowTransform: {
-					type: String,
-					value: "rotate(0)",
-					readOnly: false,
-					notify: true
-				},
-				minuteShadowTransform: {
-					type: String,
-					value: "rotate(0)",
-					readOnly: false,
-					notify: true
-				},
-				hourShadowTransform: {
-					type: String,
-					value: "rotate(0)",
-					readOnly: false,
-					notify: true
-				},
 				shadow: {
 					type: Number,
 					value: -68,
@@ -118,13 +76,13 @@
 				clearInterval(this.interval);
 			},
 			updateTime: function() {
-				var x = Math.round( -(Math.sin( (this.shadow * (Math.PI/180)) )*45) );
-				var y = Math.round( Math.cos( (this.shadow * (Math.PI/180)) )*45 );
 				this.time = new Date();
 				this.set('secondTransform',"rotate("+(this.time.getSeconds()*6)+")");
 				this.set('minuteTransform',"rotate("+(this.time.getMinutes()*6)+")");
 				this.set('hourTransform',"rotate("+((this.time.getHours()*30)+(this.time.getMinutes()/2))+")");
 				// shadow
+				var x = Math.round( -(Math.sin( (this.shadow * (Math.PI/180)) )*45) );
+				var y = Math.round( Math.cos( (this.shadow * (Math.PI/180)) )*45 );
 				this.set('faceShadow',"translate("+x+","+y+")");
 				this.set('secondShadowTransform',"translate("+x+","+y+") rotate("+(this.time.getSeconds()*6)+")");
 				this.set('minuteShadowTransform',"translate("+x+","+y+") rotate("+(this.time.getMinutes()*6)+")");
