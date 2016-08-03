@@ -18,7 +18,8 @@
     "bower_components",
     "test",
     "tests",
-    "README.md"
+    "README.md",
+    "clock.png"
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0"
