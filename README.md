@@ -1,6 +1,8 @@
 # mharj-clock
 Polymer web Element
 
+![Clock](clock.png?raw=true "Clock")
+
 ### Bower setup
 ```json
   "dependencies": {
